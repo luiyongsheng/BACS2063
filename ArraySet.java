@@ -19,7 +19,6 @@ public class ArraySet<T> implements SetInterface<T> {
         return numberOfElements;
     }
 
-    
     public ArraySet() {
         this(DEFAULT_CAPACITY);
     }
@@ -70,8 +69,6 @@ public class ArraySet<T> implements SetInterface<T> {
         return false;
     }
 
-
-
     @Override
     public String toString() {
 
@@ -110,16 +107,62 @@ public class ArraySet<T> implements SetInterface<T> {
 
     @Override
     public void union(SetInterface anotherSet) {
-        
+        // make sure another set is an instance of arrayset
+        if (anotherSet instanceof ArraySet) {
+            ArraySet aSet = (ArraySet) anotherSet;
+
+            for (int i = 0; i < aSet.numberOfElements; i++) {
+                add((T) aSet.setArray[i]);
+            }
+        }
     }
 
     @Override
     public SetInterface intersection(SetInterface anotherSet) {
+
+        SetInterface<T> tmp = new ArraySet<>();
+
+        if (anotherSet instanceof ArraySet) {
+            ArraySet aSet = (ArraySet) anotherSet;
+
+            for (int i = 0; i < numberOfElements; i++) {
+                boolean found = false;
+                for (int j = 0; j < aSet.numberOfElements && !found; j++) {
+                    if (setArray[i].equals(aSet.setArray[j])) {
+                        found = true;
+                        tmp.add((T) aSet.setArray[j]);
+                    }
+                }
+            }
+        }
+
+        return tmp;
     }
 
     @Override
     public boolean checkSubset(SetInterface anotherSet) {
+        if (anotherSet instanceof ArraySet) {
+            ArraySet aSet = (ArraySet) anotherSet;
+            if (this.numberOfElements < aSet.numberOfElements) {
+                return false;
+            }
 
+            for (int i = 0; i < numberOfElements; i++) {
+                boolean found = false;
+                for (int j = 0; j < aSet.numberOfElements && !found; j++) {
+                    found = true;
+                }
+                if(!found) return false;
+            }
+            
+        }
+        return true;
     }
-
+    
+    public int size() {
+        return numberOfElements;
+    }
+    public int length() {
+        return setArray.length;
+    }
 }
