@@ -17,4 +17,6 @@ public interface SetInterface<T> {
     public SetInterface intersection(SetInterface anotherSet);
     public boolean checkSubset(SetInterface anotherSet);
     public boolean isEmpty();
+    public int size();
+    public int length();
 }
