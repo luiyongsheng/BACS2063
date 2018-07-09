@@ -147,10 +147,11 @@ public class ArraySet<T> implements SetInterface<T> {
                 return false;
             }
 
-            for (int i = 0; i < numberOfElements; i++) {
+            for (int i = 0; i < aSet.numberOfElements; i++) {
                 boolean found = false;
                 for (int j = 0; j < aSet.numberOfElements && !found; j++) {
-                    found = true;
+                    if(setArray[j].equals(aSet.setArray[i]))
+                        found = true;
                 }
                 if(!found) return false;
             }
